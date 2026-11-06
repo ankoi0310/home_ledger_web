@@ -22,3 +22,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1.0 : route === "/features" || route === "/pricing" ? 0.8 : 0.6,
   }));
 }
+

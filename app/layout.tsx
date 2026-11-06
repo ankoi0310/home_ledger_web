@@ -8,19 +8,20 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} – Quản lý tài chính gia đình thông minh`,
+    default: `${SITE_NAME} – Trạm Quản Lý Tài Chính Chung Cho Hộ Gia Đình`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   keywords: [
     "quản lý tài chính gia đình",
     "app chi tiêu gia đình",
-    "theo dõi chi tiêu",
-    "ngân sách gia đình",
+    "quản lý chi tiêu vợ chồng",
+    "chia tiền phòng trọ",
+    "ngân sách gia đình thông minh",
     "tài chính cá nhân Việt Nam",
     "home ledger",
   ],
-  authors: [{ name: "Home Ledger" }],
+  authors: [{ name: "Home Ledger Việt Nam" }],
   creator: "Home Ledger",
   openGraph: {
     type: "website",
@@ -47,13 +48,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
   alternates: {
     canonical: SITE_URL,
@@ -74,8 +68,12 @@ export default function RootLayout({ children }: LayoutProps) {
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 antialiased">
+      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

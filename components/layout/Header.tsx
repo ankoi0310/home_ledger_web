@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Sparkles } from "lucide-react";
+import { Menu, X, Home, Sparkles, ArrowRight } from "lucide-react";
 import { NAV_LINKS, SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +15,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -25,170 +25,143 @@ export function Header() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMobileMenuOpen]);
-
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+      <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl shadow-sm border-b border-slate-200/50 dark:border-slate-800/50"
-            : "bg-transparent"
+            ? "bg-white/90 dark:bg-slate-950/90 backdrop-blur-md shadow-xs border-b border-slate-200/60 dark:border-slate-800/80 py-3"
+            : "bg-transparent py-5"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center gap-2.5 group flex-shrink-0"
-            >
-              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-200">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-200">
                 <Home className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold font-heading text-slate-900 dark:text-white">
-                Home{" "}
-                <span className="text-[#4f7eff]">Ledger</span>
-              </span>
+              <div>
+                <span className="text-xl font-black font-heading tracking-tight text-slate-900 dark:text-white">
+                  Home <span className="text-blue-600">Ledger</span>
+                </span>
+                <span className="hidden sm:block text-[10px] text-slate-400 font-medium -mt-1 tracking-wider uppercase">
+                  Tài chính gia đình
+                </span>
+              </div>
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
-                    pathname === link.href
-                      ? "text-[#4f7eff] bg-blue-50 dark:bg-blue-950/50"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-1 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-xs">
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200",
+                      isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70"
+                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/60"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* CTA + Mobile Toggle */}
+            {/* CTA + Mobile Menu Button */}
             <div className="flex items-center gap-3">
               <Link
                 href="/download"
-                className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white gradient-primary hover:opacity-90 shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
+                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white gradient-primary shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] transition-all"
               >
-                <Sparkles className="w-4 h-4" />
-                Dùng thử miễn phí
+                <span>Bắt đầu miễn phí</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
 
               <button
                 aria-label="Toggle mobile menu"
                 aria-expanded={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-                className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700 transition"
               >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 z-50 md:hidden bg-black/60 backdrop-blur-xs"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-
-            {/* Menu Panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-slate-900 shadow-2xl flex flex-col"
+              transition={{ type: "spring", damping: 25, stiffness: 280 }}
+              className="absolute right-0 top-0 bottom-0 w-80 max-w-full bg-white dark:bg-slate-900 p-6 flex flex-col justify-between shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
-                <Link
-                  href="/"
-                  className="flex items-center gap-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-                    <Home className="w-4 h-4 text-white" />
+              <div>
+                <div className="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center text-white">
+                      <Home className="w-5 h-5" />
+                    </div>
+                    <span className="font-bold text-slate-900 dark:text-white font-heading">
+                      Home Ledger
+                    </span>
                   </div>
-                  <span className="font-bold text-slate-900 dark:text-white font-heading">
-                    Home Ledger
-                  </span>
-                </Link>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  aria-label="Close menu"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              <nav className="flex-1 p-5 space-y-1">
-                {NAV_LINKS.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 + 0.1 }}
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                   >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <nav className="mt-6 space-y-1">
+                  {NAV_LINKS.map((link) => (
                     <Link
+                      key={link.href}
                       href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
-                        "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                        "block px-4 py-3 rounded-xl text-sm font-semibold transition-colors",
                         pathname === link.href
-                          ? "text-[#4f7eff] bg-blue-50 dark:bg-blue-950/50"
-                          : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
+                          ? "bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+                          : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
                       )}
                     >
                       {link.label}
                     </Link>
-                  </motion.div>
-                ))}
-              </nav>
+                  ))}
+                </nav>
+              </div>
 
-              <div className="p-5 border-t border-slate-100 dark:border-slate-800">
+              <div className="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-3">
                 <Link
                   href="/download"
-                  className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl text-sm font-semibold text-white gradient-primary hover:opacity-90 shadow-md transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-3.5 px-4 rounded-xl gradient-primary text-white text-center font-bold text-sm block shadow-md"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  Dùng thử miễn phí
+                  Tải ứng dụng miễn phí
                 </Link>
+                <p className="text-center text-xs text-slate-400">
+                  Dành riêng cho gia đình Việt Nam 🇻🇳
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -197,4 +170,3 @@ export function Header() {
     </>
   );
 }
-

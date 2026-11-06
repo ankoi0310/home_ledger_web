@@ -27,7 +27,7 @@ export function InteractiveMoneyHub() {
   const [activeTab, setActiveTab] = useState("accounts");
 
   return (
-    <section className="py-20 bg-slate-50 dark:bg-slate-900/60 border-y border-slate-200/60 dark:border-slate-800">
+    <section id="demo" className="py-24 bg-slate-50 dark:bg-slate-900/60 border-y border-slate-200/60 dark:border-slate-800 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-3 border border-emerald-200 dark:border-emerald-900">
@@ -412,3 +412,4 @@ export function InteractiveMoneyHub() {
     </section>
   );
 }
+
