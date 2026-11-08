@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Sparkles, Shield, Smartphone, QrCode, CheckCircle2 } from "lucide-react";
 import { WaitlistForm } from "@/components/shared/WaitlistForm";
 
@@ -55,6 +56,13 @@ export function WaitlistCTA() {
           {/* Right Column (4 cols): App download card with QR */}
           <div className="lg:col-span-4 flex justify-center">
             <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-8 max-w-xs w-full text-center shadow-2xl">
+              <Image
+                src="/app-icon-master.png"
+                alt="Home Ledger App Icon"
+                width={64}
+                height={64}
+                className="w-16 h-16 rounded-2xl mx-auto shadow-md mb-4"
+              />
               <div className="w-40 h-40 mx-auto bg-white p-3 rounded-2xl shadow-inner flex items-center justify-center mb-5">
                 {/* SVG QR Code Simulation */}
                 <div className="w-full h-full border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center p-2 text-slate-800">

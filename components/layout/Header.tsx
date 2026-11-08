@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, Sparkles, ArrowRight } from "lucide-react";
@@ -39,9 +40,13 @@ export function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-200">
-                <Home className="w-5 h-5 text-white" />
-              </div>
+              <Image
+                src="/apple-touch-icon.png"
+                alt="Home Ledger Icon"
+                width={40}
+                height={40}
+                className="w-10 h-10 rounded-2xl shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-200"
+              />
               <div>
                 <span className="text-xl font-black font-heading tracking-tight text-slate-900 dark:text-white">
                   Home <span className="text-blue-600">Ledger</span>
@@ -117,9 +122,13 @@ export function Header() {
               <div>
                 <div className="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center text-white">
-                      <Home className="w-5 h-5" />
-                    </div>
+                    <Image
+                      src="/apple-touch-icon.png"
+                      alt="Home Ledger"
+                      width={36}
+                      height={36}
+                      className="w-9 h-9 rounded-xl shadow-xs"
+                    />
                     <span className="font-bold text-slate-900 dark:text-white font-heading">
                       Home Ledger
                     </span>

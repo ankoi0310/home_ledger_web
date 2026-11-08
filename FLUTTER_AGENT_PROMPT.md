@@ -179,6 +179,23 @@ class AppColors {
 
 ---
 
+### Màn hình 7: Màn Hình Khởi Động / Splash Screen (Chuẩn Android 12+ & iOS)
+- Sử dụng file ảnh tách nền trong suốt: `public/splash-icon-transparent.png` (RGBA 1024x1024).
+- Cấu hình package `flutter_native_splash` trong `pubspec.yaml`:
+  ```yaml
+  flutter_native_splash:
+    color: "#030712" # Nền tối sang trọng chuẩn Fintech
+    color_dark: "#030712"
+    image: assets/icons/splash-icon-transparent.png
+    android_12:
+      image: assets/icons/splash-icon-transparent.png
+      icon_background_color: "#030712"
+    web: false
+  ```
+- Biểu tượng Home Ledger nổi bật ở trung tâm, không bị viền hộp, hiển thị mượt mà trong quá trình tải dữ liệu ban đầu.
+
+---
+
 ## 4. QUY TẮC CÔNG NGHỆ & STATE MANAGEMENT TRONG FLUTTER
 
 - **Package gợi ý**:

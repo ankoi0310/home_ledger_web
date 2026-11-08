@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Home, Mail, MapPin, Phone, Globe, MessageSquare, Share2 } from "lucide-react";
 import { SITE_NAME, FOOTER_LINKS, CONTACT_EMAIL } from "@/lib/constants";
 
@@ -37,9 +38,13 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4 group">
-              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Home className="w-5 h-5 text-white" />
-              </div>
+              <Image
+                src="/apple-touch-icon.png"
+                alt="Home Ledger Icon"
+                width={36}
+                height={36}
+                className="w-9 h-9 rounded-xl shadow-xs group-hover:scale-105 transition-transform"
+              />
               <span className="text-xl font-bold text-white font-heading">
                 Home Ledger
               </span>

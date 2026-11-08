@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Smartphone, QrCode, ShieldCheck, CheckCircle2, Star, Download, Apple, Sparkles } from "lucide-react";
 import { WaitlistForm } from "@/components/shared/WaitlistForm";
 
@@ -90,6 +91,13 @@ export default function DownloadPage() {
           {/* Right Column: QR Code Scan Box */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-center max-w-sm w-full shadow-xl">
+              <Image
+                src="/app-icon-master.png"
+                alt="Home Ledger App Icon"
+                width={72}
+                height={72}
+                className="w-18 h-18 rounded-2xl mx-auto shadow-md mb-5"
+              />
               <div className="w-48 h-48 mx-auto bg-white p-4 rounded-2xl shadow-inner flex flex-col items-center justify-center mb-6">
                 <QrCode className="w-32 h-32 text-slate-900 mb-2" />
                 <span className="text-[11px] font-bold text-slate-600">Quét bằng Camera điện thoại</span>
